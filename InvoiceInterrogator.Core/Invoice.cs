@@ -6,6 +6,7 @@ namespace InvoiceInterrogator.Core
     public class Invoice 
     {
         public int InvoiceId { get; set; }
+        public string DocVueId { get; set; }
         public string FileName { get; set; }
         public bool TaxIncluded { get; set; }
         public string VoucherNumber { get; set; }

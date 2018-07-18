@@ -6,6 +6,7 @@ namespace InvoiceInterrogator.Core
     public class Account
     {
         public int AccountId { get; set; }
+        public string AccountCode { get; set; }
         public string Name { get; set; }
         public AccountType Type { get; set; }
         public DateTime AccountTypeChangeDate{ get; set; }

@@ -1,0 +1,11 @@
+﻿@model FileUploadViewModel
+
+<form method="post" enctype="multipart/form-data" asp-action="UploadInvoices">
+    <div class="form-group">
+        <label asp-for="XmlFile" class="control-label"></label>
+        <input asp-for="XmlFile" type="file" class="form-control" />
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Upload" class="btn btn-default" />
+    </div>
+</form>

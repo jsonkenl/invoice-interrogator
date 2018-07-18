@@ -4,6 +4,7 @@
     {
         Taxable,
         NonTaxable,
-        Mixed
+        Mixed,
+        NeedsReview 
     }
 }

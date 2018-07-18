@@ -1,4 +1,5 @@
-﻿using InvoiceInterrogator.Infrastructure;
+﻿using InvoiceInterrogator.Core.Interfaces;
+using InvoiceInterrogator.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +24,9 @@ namespace InvoiceInterrogator.Net
 
             services.AddDbContext<InvoiceInterrogatorDbContext>(
                     options => options.UseSqlServer(Configuration.GetConnectionString("InvoiceInterrogator")));
+            services.AddTransient<IInvoiceRepository, InvoiceRepository>();
+            services.AddTransient<IVendorRepository, VendorRepository>();
+            services.AddTransient<IAccountRepository, AccountRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

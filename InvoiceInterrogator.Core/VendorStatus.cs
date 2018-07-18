@@ -6,6 +6,7 @@
         NonTaxable,
         TaxableError,
         NonTaxableError,
-        Mixed
+        Mixed,
+        NeedsReview
     }
 }
