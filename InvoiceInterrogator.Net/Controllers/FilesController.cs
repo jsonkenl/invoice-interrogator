@@ -1,34 +1,30 @@
 ﻿using InvoiceInterrogator.Core;
 using InvoiceInterrogator.Core.Interfaces;
 using InvoiceInterrogator.Net.Models;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using System.IO;
 using System.Threading.Tasks;
-using System.Xml;
 using System.Linq;
-using InvoiceInterrogator.Infrastructure;
+using System.Xml;
+using System.IO;
 using System;
-using System.Collections.Generic;
 
 namespace InvoiceInterrogator.Net.Controllers
 {
     public class FilesController : Controller
     {
         private IHostingEnvironment _hostingEnvironment;
-        private InvoiceInterrogatorDbContext _context;
         private IInvoiceRepository _invoiceRepo;
         private IVendorRepository _vendorRepo;
         private IAccountRepository _accountRepository;
 
         public FilesController(IHostingEnvironment hostingEnvironment,
-                                InvoiceInterrogatorDbContext context,
                                 IInvoiceRepository invoiceRepository,
                                 IVendorRepository vendorRepository,
                                 IAccountRepository accountRepository)
         {
             _hostingEnvironment = hostingEnvironment;
-            _context = context;
             _invoiceRepo = invoiceRepository;
             _vendorRepo = vendorRepository;
             _accountRepository = accountRepository;
@@ -48,7 +44,7 @@ namespace InvoiceInterrogator.Net.Controllers
                 if (model.XmlFile.ContentType.Equals("application/xml") || model.XmlFile.ContentType.Equals("text/xml"))
                 {
                     XmlDocument xmlDoc = new XmlDocument();
-                    string uploads = _hostingEnvironment.WebRootPath + "\\temp";
+                    string uploads = _hostingEnvironment.WebRootPath;
                     string filePath = Path.Combine(uploads, model.XmlFile.FileName).ToString();
 
                     try
@@ -64,39 +60,37 @@ namespace InvoiceInterrogator.Net.Controllers
                             XmlNodeList nodeList = xmlDoc.DocumentElement.SelectNodes("/DOCUMENTS/DOCUMENT");
                             foreach (XmlNode node in nodeList)
                             {
-                                var docId = node.SelectSingleNode("Doc_ID").InnerText;
+                                var docId = ParseNode(node, "Doc_ID");
 
-                                Invoice existingInvoice = _context
-                                    .Invoices
-                                    .FirstOrDefault(i => i.DocVueId == docId);
+                                Invoice existingInvoice = _invoiceRepo.GetByDocVueId(docId);
 
                                 if (existingInvoice == null)
                                 {
                                     var newInvoice = new Invoice()
                                     {
                                         DocVueId = docId, 
-                                        FileName = node.SelectSingleNode("File_Name").InnerText,
-                                        TaxIncluded = (node.SelectSingleNode("Priority").InnerText == "Y") ? true : false,
-                                        VoucherNumber = node.SelectSingleNode("Voucher_No_").InnerText,
-                                        InvoiceNumber = node.SelectSingleNode("Invoice_No_").InnerText,
-                                        InvoiceAmount = Convert.ToDecimal(node.SelectSingleNode("Invoice_Total").InnerText),
-                                        InvoiceDate = DateTime.Parse(node.SelectSingleNode("Invoice_Date").InnerText),
+                                        FileName = ParseNode(node, "File_Name"),
+                                        TaxIncluded = TaxIncluded(ParseNode(node, "Priority")),
+                                        VoucherNumber = ParseNode(node, "Voucher_No_"),
+                                        InvoiceNumber = ParseNode(node, "Invoice_No_"),
+                                        InvoiceAmount = StringToDecimal(ParseNode(node, "Invoice_Total")),
+                                        InvoiceDate = StringToDateTime(ParseNode(node, "Invoice_Date")),
                                         Sampled = false,
                                         Vendor = GetOrAddVendor(node)
                                     };
 
                                     newInvoice.InvoiceAccounts = LinkAccounts(node, newInvoice);
                                     _invoiceRepo.Add(newInvoice);
-                                    _context.SaveChanges();
+                                    _invoiceRepo.Commit();
                                 }
                             }
 
                             return RedirectToAction("Index", "Home");
                         }
                     }
-                    catch
+                    catch (Exception x)
                     {
-                        ModelState.AddModelError("", "Unable to Process File");
+                        ModelState.AddModelError("", $"Unable to Process File: {x.Message}");
                         return View(); //TODO add alert
                     }
                 }
@@ -109,9 +103,15 @@ namespace InvoiceInterrogator.Net.Controllers
             return View(); //TODO add alert
         }
 
+        private string ParseNode(XmlNode node, string nodeName)
+        {
+            XmlNode objNode = node.SelectSingleNode(nodeName);
+            return (objNode != null) ? objNode.InnerText : null;
+        }
+
         private Vendor GetOrAddVendor(XmlNode node)
         {
-            var vendorNumber = Convert.ToInt32(node.SelectSingleNode("Vendor_No_").InnerText);
+            var vendorNumber = StringToInt(ParseNode(node, "Vendor_No_"));
             var existingVendor = _vendorRepo.GetByVendorNumber(vendorNumber);
 
             if (existingVendor != null)
@@ -122,7 +122,7 @@ namespace InvoiceInterrogator.Net.Controllers
             {
                 Vendor newVendor = new Vendor
                 {
-                    VendorName = node.SelectSingleNode("Vendor_Name").InnerText,
+                    VendorName = ParseNode(node, "Vendor_Name"),
                     VendorNumber = vendorNumber,
                     Status = VendorStatus.NeedsReview,
                     VendorStatusChangeDate = DateTime.Now
@@ -135,7 +135,7 @@ namespace InvoiceInterrogator.Net.Controllers
 
         private ICollection<InvoiceAccount> LinkAccounts(XmlNode node, Invoice newInvoice)
         {
-            List<string> acctList = node.SelectSingleNode("Acct_Code").InnerText.Split('~').ToList();
+            List<string> acctList = StringToAccountList(ParseNode(node, "Acct_Code"));
             List<InvoiceAccount> invoiceAccounts = new List<InvoiceAccount>();
 
             foreach (string acct in acctList)
@@ -170,5 +170,31 @@ namespace InvoiceInterrogator.Net.Controllers
 
             return invoiceAccounts;
         }
+
+        private List<string> StringToAccountList(string accts)
+        {
+            return (accts != null) ? accts.Split('~').ToList() : new List<string>();
+        }
+
+        private bool TaxIncluded(string taxFlag)
+        {
+            return (taxFlag != null && taxFlag == "Y") ? true : false;
+        }
+
+        private int StringToInt(string num)
+        {
+            return (num != null) ? Convert.ToInt32(num) : 0;
+        }
+
+        private decimal StringToDecimal(string amount)
+        {
+            return (amount != null) ? Convert.ToDecimal(amount) : 0;
+        }
+
+        private DateTime StringToDateTime(string date)
+        {
+            return (date != null) ? DateTime.Parse(date) : new DateTime(1900, 1, 1);
+        }
+
     }
 }
