@@ -5,18 +5,18 @@ using System.Linq;
 
 namespace InvoiceInterrogator.Net.Controllers
 {
-    public class HomeController : Controller
+    public class TablesController : Controller
     {
         private IInvoiceRepository _invoiceRepo;
 
-        public HomeController(IInvoiceRepository invoiceRepository)
+        public TablesController(IInvoiceRepository invoiceRepository)
         {
             _invoiceRepo = invoiceRepository;
         }
 
-        public IActionResult Index()
+        public IActionResult AllInvoices()
         {
-            var invoices = _invoiceRepo.Get200();
+            var invoices = _invoiceRepo.GetAll();
             var maxNumOfAccounts = 0;
 
             if (invoices.Any())
@@ -28,7 +28,7 @@ namespace InvoiceInterrogator.Net.Controllers
                     .Count;
             }
 
-            var model = new HomeViewModel()
+            var model = new TablesViewModel()
             {
                 MaxNumAccounts = maxNumOfAccounts,
                 Invoices = invoices
@@ -38,3 +38,4 @@ namespace InvoiceInterrogator.Net.Controllers
         }
     }
 }
+

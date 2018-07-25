@@ -54,9 +54,15 @@ namespace InvoiceInterrogator.Infrastructure.Migrations
 
                     b.Property<string>("InvoiceNumber");
 
+                    b.Property<DateTime?>("ProcessedDate");
+
                     b.Property<bool>("Sampled");
 
+                    b.Property<int>("Status");
+
                     b.Property<bool>("TaxIncluded");
+
+                    b.Property<DateTime>("UploadDate");
 
                     b.Property<int?>("VendorId");
 

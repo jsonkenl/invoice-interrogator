@@ -23,26 +23,55 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div id="navbarWrapper" class="container-fluid">
             <a id="siteLogo" class="navbar-brand" href="#">
-                <i class="fas fa-file-invoice-dollar fa-2x"></i>
-                <span>InvoiceInterrogator</span>
+                <i class="far fa-file-alt fa-2x"></i>
+                <span>Invoice Interrogator</span>
             </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#invIntNavbar" aria-controls="invIntNavbar" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse justify-content-end" id="navbarColor01">
+            <div class="collapse navbar-collapse justify-content-end" id="invIntNavbar">
                 <ul class="navbar-nav">
                     <li class="nav-item active">
                         <a class="nav-link" asp-controller="Home" asp-action="Index">Home <span class="sr-only">(current)</span></a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="Files" asp-action="UploadInvoices">Upload Invoices</a>
+                    <li class="nav-item dropdown">
+                        <a href="#" id="uploadsDropdown" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            Upload <span class="caret"></span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="uploadsDropdown">
+                            <a class="dropdown-item" asp-controller="Files" asp-action="UploadInvoices">Invoices</a>
+                            <a class="dropdown-item" href="#">New Vendors</a>
+                            <a class="dropdown-item" href="#">Chart of Accounts</a>
+                        </div>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Pricing</a>
+                    <li class="nav-item dropdown">
+                        <a href="#" id="viewsDropdown" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            View <span class="caret"></span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="viewsDropdown">
+                            <a class="dropdown-item" asp-controller="Tables" asp-action="AllInvoices">All Invoices</a>
+                            <a class="dropdown-item" href="#">Unprocessed Invoices</a>
+                        </div>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
+                    <li class="nav-item dropdown">
+                        <a href="#" id="editDropdown" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            Edit <span class="caret"></span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="editDropdown">
+                            <a class="dropdown-item" href="#">Vendors</a>
+                            <a class="dropdown-item" href="#">Accounts</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a href="#" id="reportDropdown" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            Reports <span class="caret"></span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="reportDropdown">
+                            <a class="dropdown-item" href="#">Invoices to Review</a>
+                            <a class="dropdown-item" href="#">Vendors to Review</a>
+                            <a class="dropdown-item" href="#">Accounts to Review</a>
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -64,6 +93,7 @@
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
         <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.18/b-1.5.2/b-html5-1.5.2/r-2.2.2/datatables.min.js"></script>
         <script src="~/lib/font-awesome/all.min.js"></script>
+        <script src="~/js/tables.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
     </environment>
     <environment exclude="Development">

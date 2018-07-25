@@ -16,4 +16,8 @@
     <ProjectReference Include="..\InvoiceInterrogator.Infrastructure\InvoiceInterrogator.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\" />
+  </ItemGroup>
+
 </Project>

@@ -53,8 +53,11 @@ namespace InvoiceInterrogator.Infrastructure.Migrations
                     InvoiceAmount = table.Column<decimal>(nullable: false),
                     InvoiceDate = table.Column<DateTime>(nullable: false),
                     InvoiceNumber = table.Column<string>(nullable: true),
+                    ProcessedDate = table.Column<DateTime>(nullable: true),
                     Sampled = table.Column<bool>(nullable: false),
+                    Status = table.Column<int>(nullable: false),
                     TaxIncluded = table.Column<bool>(nullable: false),
+                    UploadDate = table.Column<DateTime>(nullable: false),
                     VendorId = table.Column<int>(nullable: true),
                     VoucherNumber = table.Column<string>(nullable: true)
                 },

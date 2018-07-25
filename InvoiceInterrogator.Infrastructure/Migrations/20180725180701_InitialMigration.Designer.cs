@@ -12,7 +12,7 @@ using System;
 namespace InvoiceInterrogator.Infrastructure.Migrations
 {
     [DbContext(typeof(InvoiceInterrogatorDbContext))]
-    [Migration("20180718213207_InitialMigration")]
+    [Migration("20180725180701_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -55,9 +55,15 @@ namespace InvoiceInterrogator.Infrastructure.Migrations
 
                     b.Property<string>("InvoiceNumber");
 
+                    b.Property<DateTime?>("ProcessedDate");
+
                     b.Property<bool>("Sampled");
 
+                    b.Property<int>("Status");
+
                     b.Property<bool>("TaxIncluded");
+
+                    b.Property<DateTime>("UploadDate");
 
                     b.Property<int?>("VendorId");
 

@@ -9,6 +9,7 @@ namespace InvoiceInterrogator.Core.Interfaces
         Invoice GetByDocVueId(string id);
         void Remove(int id);
         void Commit();
-        IEnumerable<Invoice> GetAll(); 
+        IEnumerable<Invoice> GetAll();
+        IEnumerable<Invoice> Get200();
     }
 }

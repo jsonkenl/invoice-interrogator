@@ -75,8 +75,8 @@ namespace InvoiceInterrogator.Net.Controllers
                                         InvoiceNumber = ParseNode(node, "Invoice_No_"),
                                         InvoiceAmount = StringToDecimal(ParseNode(node, "Invoice_Total")),
                                         InvoiceDate = StringToDateTime(ParseNode(node, "Invoice_Date")),
-                                        //UploadDate = DateTime.Now,
-                                        //Status = InvoiceStatus.Unprocessed,
+                                        UploadDate = DateTime.Now,
+                                        Status = InvoiceStatus.Unprocessed,
                                         Sampled = false,
                                         Vendor = GetOrAddVendor(node)
                                     };

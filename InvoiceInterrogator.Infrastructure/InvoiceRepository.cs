@@ -25,6 +25,16 @@ namespace InvoiceInterrogator.Infrastructure
             _context.SaveChanges();
         }
 
+        public IEnumerable<Invoice> Get200()
+        {
+            return _context.Invoices
+                .Include(i => i.Vendor)
+                .Include(i => i.InvoiceAccounts)
+                .ThenInclude(i => i.Account)
+                .OrderByDescending(i => i.InvoiceDate)
+                .Take(200);
+        }
+
         public IEnumerable<Invoice> GetAll()
         {
             return _context.Invoices
