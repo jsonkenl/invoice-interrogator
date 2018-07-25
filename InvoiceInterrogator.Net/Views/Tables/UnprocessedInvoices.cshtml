@@ -1,0 +1,18 @@
+﻿@model TablesViewModel
+
+@{
+    ViewData["Title"] = "Unprocessed Invoices";
+    ViewData["Header"] = "Unprocessed Invoices";
+}
+
+<div id="unprocessedInvoiceTableWrapper">
+    <table id="unprocessedInvoiceTable" class="table table-sm table-bordered table-hover table-striped">
+        @Html.Partial("_InvoiceTablePartial")
+    </table>
+</div>
+
+<div class="">
+    <button id="processButton" class="btn btn-primary btn-lg">Process</button>
+</div>
+
+@Html.Partial("_AccountModalPartial")

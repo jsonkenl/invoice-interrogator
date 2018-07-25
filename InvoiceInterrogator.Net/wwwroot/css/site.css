@@ -1,17 +1,22 @@
-﻿/* General */
+﻿/* General Styles */
 .center {
     text-align: center; 
 }
 
-/* Navigation */
+/* Navigation Styles */
 .navbar {
     padding-top: 5px;
     padding-bottom: 5px;
 }
 
+#siteLogo .fa-file-alt,
+#siteLogo span {
+    color: #dbdbdb;
+}
+
 #siteLogo span {
     font-size: 1.5em;
-    padding-left: 8px;
+    padding-left: 10px;
     display: table-cell;
     float: right;
 }
@@ -25,20 +30,32 @@
     font-size: 0.8rem;
 }
 
-/* Invoice Table */
-#invoiceTableWrapper {
+/* Shared Table Styles */
+#invoiceTableWrapper,
+#allInvoiceTableWrapper,
+#unprocessedInvoiceTableWrapper {
     padding-top: 30px;
 }
 
-.msg-200 {
-    padding-left: 10px;
-    padding-top: 18px;
-    font-size: 0.75rem;
-    color: #555;
+#invoiceTableWrapper .buttons-excel,
+#allInvoiceTableWrapper .buttons-excel,
+#unprocessedInvoiceTableWrapper .buttons-excel {
+    border-top-right-radius: .25rem;
+    border-bottom-right-radius: .25rem;
 }
 
-.msg-200 a {
-    opacity: 0.7;
+#invoiceTableWrapper .dataTables_paginate,
+#allInvoiceTableWrapper .dataTables_paginate {
+    padding-bottom: 80px;
+}
+
+.dataTables_paginate {
+    padding-top: 20px;
+    padding-right: 18px;
+}
+
+.dataTables_filter {
+    padding-right: 18px;
 }
 
 .invoice-amount {
@@ -50,32 +67,40 @@
     padding-left: 20px;
 }
 
-#invoiceTableWrapper .buttons-excel {
-    border-top-right-radius: .25rem;
-    border-bottom-right-radius: .25rem;
-}
-
-.dataTables_paginate {
-    padding-bottom: 80px;
-}
-
 .acct-header {
     width: 100%; 
     text-align: center;
     margin-right: -30px;
+    font-size: 1.8rem;
 }
 
-/* All Invoice Table */
-#allInvoiceTableWrapper {
-    padding-top: 30px;
+.accts-modal-header {
+    border-bottom-color: #2A9FD6;
 }
 
-#allInvoiceTableWrapper .buttons-excel {
-    border-top-right-radius: .25rem;
-    border-bottom-right-radius: .25rem;
+.acct-code {
+    color: #fff;
 }
 
-/* Page Loader */
+/* 200 Invoice Table Styles */
+.msg-200 {
+    padding-left: 10px;
+    padding-top: 18px;
+    font-size: 0.75rem;
+    color: #555;
+}
+
+    .msg-200 a {
+        opacity: 0.7;
+    }
+
+/* Unprocessed Invoice Table Styles */
+#processButton {
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+/* Page Loader Styles */
 #pageLoader {
     color: #fff;
     display: block;

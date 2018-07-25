@@ -1,0 +1,108 @@
+﻿<thead>
+    <tr>
+        <th class="center">DocVue Id</th>
+        <th class="center">File Name</th>
+        <th class="center">Vendor Number</th>
+        <th>Vendor Name</th>
+        <th class="center">Accounts</th>
+        <th class="center">Voucher Number</th>
+        <th class="center">Invoice Number</th>
+        <th class="center">Invoice Date</th>
+        <th class="center">Amount</th>
+        <th class="center">Status</th>
+        <th class="center">Sampled</th>
+        @for (int i = 0; i < Model.MaxNumAccounts; i++)
+        {
+            <th>
+                @($"Account #{i + 1}")
+            </th>
+        }
+    </tr>
+</thead>
+<tbody>
+    @if (Model.Invoices != null)
+    {
+        @foreach (var invoice in Model.Invoices)
+        {
+            <tr>
+                <td class="center">
+                    @invoice.DocVueId
+                </td>
+                <td class="center">
+                    @invoice.FileName
+                </td>
+                <td class="center">
+                    @invoice.Vendor.VendorNumber
+                </td>
+                <td>
+                    @invoice.Vendor.VendorName
+                </td>
+
+                @if (invoice.InvoiceAccounts.Count == 0)
+                {
+                    <td></td>
+                }
+                else if (invoice.InvoiceAccounts.Count == 1)
+                {
+                    @foreach (var acct in invoice.InvoiceAccounts)
+                    {
+                        <td class="center">
+                            @acct.Account.AccountCode
+                        </td>
+                    }
+                }
+                else
+                {
+                    <td class="center">
+                        <a href=@($"#multiAcctModal{Model.Index}") data-target=@($"#multiAcctModal{Model.Index}") data-toggle="modal">Multiple</a>
+                    </td>
+
+                    @foreach (var acct in invoice.InvoiceAccounts)
+                    {
+                        Model.CurrentAccountList.Add(acct.Account.AccountCode);
+                    }
+
+                    Model.AccountsLists.Add(Model.CurrentAccountList);
+                    Model.CurrentAccountList = new List<string>();
+                    Model.Index++;
+                }
+
+                <td class="center">
+                    @invoice.VoucherNumber
+                </td>
+                <td class="center">
+                    @invoice.InvoiceNumber
+                </td>
+                <td class="center">
+                    @string.Format("{0:MM/dd/yyyy}", invoice.InvoiceDate)
+                </td>
+                <td class="invoice-amount">
+                    @string.Format("{0:C}", invoice.InvoiceAmount)
+                </td>
+                <td class="center">
+                    @invoice.Status
+                </td>
+                <td class="center">
+                    @if (invoice.Sampled)
+                    {
+                        <i class="far fa-check-circle"></i>
+                    }
+                    else
+                    {
+                        <i class="far fa-circle"></i>
+                    }
+                </td>
+                @foreach (var acct in invoice.InvoiceAccounts)
+                {
+                    <td>
+                        @acct.Account.AccountCode
+                    </td>
+                }
+                @for (int i = 0; i < (Model.MaxNumAccounts - invoice.InvoiceAccounts.Count); i++)
+                {
+                    <td></td>
+                }
+            </tr>
+        }
+    }
+</tbody>

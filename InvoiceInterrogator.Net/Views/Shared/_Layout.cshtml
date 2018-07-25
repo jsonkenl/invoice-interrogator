@@ -23,8 +23,16 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div id="navbarWrapper" class="container-fluid">
             <a id="siteLogo" class="navbar-brand" href="#">
-                <i class="far fa-file-alt fa-2x"></i>
-                <span>Invoice Interrogator</span>
+                @if (ViewData["Header"] == null)
+                {
+                    <i class="far fa-file-alt fa-2x"></i>
+                    <span>Invoice Interrogator</span>
+                }
+                else
+                {
+                    <i class="far fa-file-alt fa-2x"></i>
+                    <span>@ViewData["Header"]</span>
+                }
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#invIntNavbar" aria-controls="invIntNavbar" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -51,7 +59,7 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="viewsDropdown">
                             <a class="dropdown-item" asp-controller="Tables" asp-action="AllInvoices">All Invoices</a>
-                            <a class="dropdown-item" href="#">Unprocessed Invoices</a>
+                            <a class="dropdown-item" asp-controller="Tables" asp-action="UnprocessedInvoices">Unprocessed Invoices</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">

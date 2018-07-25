@@ -1,9 +1,5 @@
 ﻿// 200 Invoice Table
 /////////////////////////////////////////////////////////////
-$(document).ready(function () {
-    $('#invoiceTable').DataTable();
-});
-
 var invoice = $('#invoiceTable').DataTable({
     lengthMenu: [[20, 50, 100, -1], [20, 50, 100, 'All']],
     columnDefs: [
@@ -32,10 +28,6 @@ $(".dataTables_empty").html(empty);
 
 // All Invoice Table
 ///////////////////////////////////////////////////////////
-$(document).ready(function () {
-    $('#allInvoiceTable').DataTable();
-});
-
 var everyInvoice = $('#allInvoiceTable').DataTable({
     lengthMenu: [[20, 50, 100, -1], [20, 50, 100, 'All']],
     columnDefs: [
@@ -53,3 +45,26 @@ everyInvoice.buttons().container()
 var btn = $('#allInvoiceTable_wrapper').find('.btn-secondary');
 btn.addClass('btn-outline-primary');
 btn.removeClass('btn-secondary');
+
+// Unprocessed Invoice Table
+///////////////////////////////////////////////////////////
+var unprocessedInvoice = $('#unprocessedInvoiceTable').DataTable({
+    lengthMenu: [[20, 50, 100, -1], [20, 50, 100, 'All']],
+    columnDefs: [
+        { "visible": true, "targets": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10] },
+        { "visible": false, "targets": ["_all"] }
+    ],
+    buttons: [
+        'copy', 'excel'
+    ]
+});
+
+unprocessedInvoice.buttons().container()
+    .appendTo($('.dataTables_length:eq(0)', unprocessedInvoice.table().container()));
+
+var btn = $('#unprocessedInvoiceTable_wrapper').find('.btn-secondary');
+btn.addClass('btn-outline-primary');
+btn.removeClass('btn-secondary');
+
+var empty = 'No Unprocessed Invoices'
+$(".dataTables_empty").html(empty);

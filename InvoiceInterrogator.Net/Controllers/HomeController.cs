@@ -1,6 +1,7 @@
 ﻿using InvoiceInterrogator.Core.Interfaces;
 using InvoiceInterrogator.Net.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace InvoiceInterrogator.Net.Controllers
@@ -31,7 +32,10 @@ namespace InvoiceInterrogator.Net.Controllers
             var model = new HomeViewModel()
             {
                 MaxNumAccounts = maxNumOfAccounts,
-                Invoices = invoices
+                Invoices = invoices,
+                AccountsLists = new List<List<string>>(),
+                CurrentAccountList = new List<string>(),
+                Index = 0
             };
 
             return View(model);
