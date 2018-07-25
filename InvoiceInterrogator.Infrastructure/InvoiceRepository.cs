@@ -1,5 +1,6 @@
 ﻿using InvoiceInterrogator.Core;
 using InvoiceInterrogator.Core.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -26,17 +27,20 @@ namespace InvoiceInterrogator.Infrastructure
 
         public IEnumerable<Invoice> GetAll()
         {
-            return _context.Invoices;
+            return _context.Invoices
+                .Include(i => i.Vendor)
+                .Include(i => i.InvoiceAccounts)
+                .ThenInclude(i => i.Account);
         }
 
         public Invoice GetByDocVueId(string id)
         {
-            return _context.Invoices.FirstOrDefault(i => i.DocVueId == id);
+            return _context.Invoices.Include(i => i.Vendor).FirstOrDefault(i => i.DocVueId == id);
         }
 
         public Invoice GetById(int id)
         {
-            return _context.Invoices.FirstOrDefault(i => i.InvoiceId == id);
+            return _context.Invoices.Include(i => i.Vendor).FirstOrDefault(i => i.InvoiceId == id);
         }
 
         public void Remove(int id)

@@ -13,6 +13,9 @@ namespace InvoiceInterrogator.Core
         public string InvoiceNumber { get; set; }
         public decimal InvoiceAmount { get; set; }
         public DateTime InvoiceDate { get; set; }
+        //public InvoiceStatus Status { get; set; }
+        //public DateTime UploadDate { get; set; }
+        //public DateTime? ProcessedDate { get; set; }
         public bool Sampled { get; set; }
         public Vendor Vendor { get; set; }
         public ICollection<InvoiceAccount> InvoiceAccounts { get; set; }

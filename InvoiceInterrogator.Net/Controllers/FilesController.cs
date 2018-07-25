@@ -36,7 +36,7 @@ namespace InvoiceInterrogator.Net.Controllers
             return View();
         }
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> UploadInvoices(FileUploadViewModel model)
         {
             if (ModelState.IsValid)
@@ -68,13 +68,15 @@ namespace InvoiceInterrogator.Net.Controllers
                                 {
                                     var newInvoice = new Invoice()
                                     {
-                                        DocVueId = docId, 
+                                        DocVueId = docId,
                                         FileName = ParseNode(node, "File_Name"),
                                         TaxIncluded = TaxIncluded(ParseNode(node, "Priority")),
                                         VoucherNumber = ParseNode(node, "Voucher_No_"),
                                         InvoiceNumber = ParseNode(node, "Invoice_No_"),
                                         InvoiceAmount = StringToDecimal(ParseNode(node, "Invoice_Total")),
                                         InvoiceDate = StringToDateTime(ParseNode(node, "Invoice_Date")),
+                                        //UploadDate = DateTime.Now,
+                                        //Status = InvoiceStatus.Unprocessed,
                                         Sampled = false,
                                         Vendor = GetOrAddVendor(node)
                                     };

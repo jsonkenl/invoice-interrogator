@@ -1,11 +1,26 @@
 ﻿@model FileUploadViewModel
 
-<form method="post" enctype="multipart/form-data" asp-action="UploadInvoices">
-    <div class="form-group">
-        <label asp-for="XmlFile" class="control-label"></label>
-        <input asp-for="XmlFile" type="file" class="form-control" />
+<div class="row align-items-center">
+    <div class="col">
     </div>
-    <div class="form-group">
-        <input type="submit" value="Upload" class="btn btn-default" />
+    <div class="col">
+        <div id="uploadCard" class="card text-white bg-secondary mb-3">
+            <div class="card-header">
+                Select File to Upload
+            </div>
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data" asp-action="UploadInvoices">
+                    <div id="uploadForm" class="form-group">
+                        <input asp-for="XmlFile" type="file" class="form-control-file" />
+                        <small id="fileHelp" class="form-text">Export .xml file from DocVue and upload here</small>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Upload" class="btn btn-dark btn-block" />
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-</form>
+    <div class="col">
+    </div>
+</div>
