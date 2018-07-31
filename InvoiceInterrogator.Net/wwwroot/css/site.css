@@ -3,6 +3,21 @@
     text-align: center; 
 }
 
+.row-link {
+    display: block;
+    text-decoration: none;
+    color: #fff;
+}
+
+.row-link:hover {
+    text-decoration: none;
+    color: #fff;
+}
+
+.row-link:focus {
+    outline: none;
+}
+
 /* Navigation Styles */
 .navbar {
     padding-top: 5px;
@@ -33,14 +48,16 @@
 #invoiceTableWrapper,
 #allInvoiceTableWrapper,
 #unprocessedInvoiceTableWrapper,
-#vendorTableWrapper {
+#vendorTableWrapper,
+#accountsTableWrapper {
     padding-top: 30px;
 }
 
 #invoiceTableWrapper .buttons-excel,
 #allInvoiceTableWrapper .buttons-excel,
 #unprocessedInvoiceTableWrapper .buttons-excel,
-#vendorTableWraper .buttons-excel {
+#vendorTableWraper .buttons-excel,
+#accountsTableWrapper .buttons-excel {
     border-top-right-radius: .25rem;
     border-bottom-right-radius: .25rem;
 }
@@ -202,25 +219,24 @@
     margin: auto;
 }
 
-.row-link {
-    display: block;
-    text-decoration: none;
-    color: #fff;
-}
-
-.row-link:hover {
-    text-decoration: none;
-    color: #fff;
-}
-
-.row-link:focus {
-    outline: none;
-}
-
 #vendorEditCard {
     margin: 50px auto;
 }
 
 #vendorEditCard a {
+    margin-left: 10px;
+}
+
+/* Accounts Styles */
+#accountsTableWrapper {
+    max-width: 50%;
+    margin: auto;
+}
+
+#accountEditCard {
+    margin: 50px auto;
+}
+
+#accountEditCard a {
     margin-left: 10px;
 }

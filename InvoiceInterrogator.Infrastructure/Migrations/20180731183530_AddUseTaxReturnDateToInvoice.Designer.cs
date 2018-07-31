@@ -12,9 +12,10 @@ using System;
 namespace InvoiceInterrogator.Infrastructure.Migrations
 {
     [DbContext(typeof(InvoiceInterrogatorDbContext))]
-    partial class InvoiceInterrogatorDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180731183530_AddUseTaxReturnDateToInvoice")]
+    partial class AddUseTaxReturnDateToInvoice
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

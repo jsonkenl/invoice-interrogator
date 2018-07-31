@@ -1,0 +1,49 @@
+﻿@model AccountsViewModel
+
+@{
+    ViewData["Title"] = "Accounts";
+    ViewData["Header"] = "Accounts";
+}
+
+<div id="accountsTableWrapper">
+    <table id="accountsTable" class="table table-sm table-bordered table-hover table-striped">
+        <thead>
+            <tr>
+                <th class="center">Account Code</th>
+                <th>Name</th>
+                <th class="center">Type</th>
+                <th class="center">Last Update</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Accounts != null)
+            {
+                @foreach (var acct in Model.Accounts)
+                {
+                    <tr>
+                        <td class="center">
+                            <a class="row-link" asp-action="EditAccount" asp-route-id="@acct.AccountId">
+                                @acct.AccountCode
+                            </a>
+                        </td>
+                        <td>
+                            <a class="row-link" asp-action="EditAccount" asp-route-id="@acct.AccountId">
+                                @acct.Name
+                            </a>
+                        </td>
+                        <td class="center">
+                            <a class="row-link" asp-action="EditAccount" asp-route-id="@acct.AccountId">
+                                @acct.Type
+                            </a>
+                        </td>
+                        <td class="center">
+                            <a class="row-link" asp-action="EditAccount" asp-route-id="@acct.AccountId">
+                                @string.Format("{0:MM/dd/yyyy}", acct.AccountTypeChangeDate)
+                            </a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

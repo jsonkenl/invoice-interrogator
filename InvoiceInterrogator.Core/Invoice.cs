@@ -16,6 +16,7 @@ namespace InvoiceInterrogator.Core
         public InvoiceStatus Status { get; set; }
         public DateTime UploadDate { get; set; }
         public DateTime? ProcessedDate { get; set; }
+        public DateTime? UseTaxReturnDate { get; set; }
         public bool Sampled { get; set; }
         public Vendor Vendor { get; set; }
         public ICollection<InvoiceAccount> InvoiceAccounts { get; set; }

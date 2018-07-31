@@ -90,3 +90,23 @@ vendors.buttons().container()
 var btn = $('#vendorTable_wrapper').find('.btn-secondary');
 btn.addClass('btn-outline-primary');
 btn.removeClass('btn-secondary');
+
+// Accounts Table
+///////////////////////////////////////////////////////////
+var accts = $('#accountsTable').DataTable({
+    lengthMenu: [[20, 50, 100, -1], [20, 50, 100, 'All']],
+    columnDefs: [
+        { "width": "120px", "targets": [0, 2, 3] }
+    ],
+    buttons: [
+        'copy', 'excel'
+    ],
+    order: [[0, 'asc']]
+});
+
+accts.buttons().container()
+    .appendTo($('.dataTables_length:eq(0)', accts.table().container()));
+
+var btn = $('#accountsTable_wrapper').find('.btn-secondary');
+btn.addClass('btn-outline-primary');
+btn.removeClass('btn-secondary');
