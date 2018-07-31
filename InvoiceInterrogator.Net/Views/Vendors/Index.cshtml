@@ -1,0 +1,55 @@
+﻿@model VendorsViewModel
+
+@{
+    ViewData["Title"] = "Vendors";
+    ViewData["Header"] = "Vendors";
+}
+
+<div id="vendorTableWrapper">
+    <table id="vendorTable" class="table table-sm table-bordered table-hover table-striped">
+        <thead>
+            <tr>
+                <th class="center">Vendor Number</th>
+                <th>Vendor Name</th>
+                <th>Description</th>
+                <th class="center">Status</th>
+                <th class="center">Last Update</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Vendors != null)
+            {
+                @foreach (var vendor in Model.Vendors)
+                {
+                    <tr>
+                        <td class="center">
+                            <a class="row-link" asp-action="EditVendor" asp-route-id="@vendor.VendorId">
+                                @vendor.VendorNumber
+                            </a>
+                        </td>
+                        <td>
+                            <a class="row-link" asp-action="EditVendor" asp-route-id="@vendor.VendorId">
+                                @vendor.VendorName
+                            </a>
+                        </td>
+                        <td>
+                            <a class="row-link" asp-action="EditVendor" asp-route-id="@vendor.VendorId">
+                                @vendor.Description
+                            </a>
+                        </td>
+                        <td class="center">
+                            <a class="row-link" asp-action="EditVendor" asp-route-id="@vendor.VendorId">
+                                @vendor.Status
+                            </a>
+                        </td>
+                        <td class="center">
+                            <a class="row-link" asp-action="EditVendor" asp-route-id="@vendor.VendorId">
+                                @string.Format("{0:MM/dd/yyyy}", vendor.VendorStatusChangeDate)
+                            </a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

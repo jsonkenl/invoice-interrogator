@@ -1,0 +1,56 @@
+﻿@model VendorEditViewModel
+
+@{
+    var vendor = ViewData["Vendor"] as Vendor;
+}
+
+<div id="vendorEditCard" class="row justify-content-center">
+    <div class="card border-primary mb-3 col-8 col-md-6 col-lg-4 col-xl-3">
+        <div class="card-header">
+            <h4 class="card-title">Edit Vendor</h4>
+            @Html.ValidationSummary()
+        </div>
+        @if (vendor != null)
+        {
+            <form method="post" asp-controller="Vendors" asp-action="EditVendor" asp-route-id="@vendor.VendorId" asp-antiforgery="true">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label class="control-label" asp-for="VendorName"></label>
+                        <div>
+                            <input class="form-control" value="@vendor.VendorName" placeholder="@vendor.VendorName" asp-for="VendorName" />
+                            <span asp-validation-for="VendorName"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" asp-for="VendorNumber"></label>
+                        <div>
+                            <input class="form-control" value="@vendor.VendorNumber" placeholder="@vendor.VendorNumber" asp-for="VendorNumber" />
+                            <span asp-validation-for="VendorNumber"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" asp-for="Description"></label>
+                        <div>
+                            <input class="form-control" value="@vendor.Description" placeholder="@vendor.Description" asp-for="Description" />
+                            <span asp-validation-for="Description"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" asp-for="Status"></label>
+                        <div>
+                            <select class="form-control" asp-for="Status" asp-items="@Html.GetEnumSelectList(typeof(VendorStatus))">
+                                <option selected="selected" value="@vendor.Status">@vendor.Status</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="form-group">
+                            <input type="submit" value="Edit" class="btn btn-outline-primary" />
+                            <a class="btn btn-outline-danger" asp-controller="Vendors" asp-action="Index">Cancel</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        }
+    </div>
+</div>

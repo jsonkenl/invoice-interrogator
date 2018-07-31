@@ -17,7 +17,6 @@
 #siteLogo span {
     font-size: 1.5em;
     padding-left: 10px;
-    display: table-cell;
     float: right;
 }
 
@@ -33,13 +32,15 @@
 /* Shared Table Styles */
 #invoiceTableWrapper,
 #allInvoiceTableWrapper,
-#unprocessedInvoiceTableWrapper {
+#unprocessedInvoiceTableWrapper,
+#vendorTableWrapper {
     padding-top: 30px;
 }
 
 #invoiceTableWrapper .buttons-excel,
 #allInvoiceTableWrapper .buttons-excel,
-#unprocessedInvoiceTableWrapper .buttons-excel {
+#unprocessedInvoiceTableWrapper .buttons-excel,
+#vendorTableWraper .buttons-excel {
     border-top-right-radius: .25rem;
     border-bottom-right-radius: .25rem;
 }
@@ -96,7 +97,7 @@
 
 /* Unprocessed Invoice Table Styles */
 #processButton {
-    margin-top: 20px;
+    margin-top: 10px;
     margin-bottom: 30px;
 }
 
@@ -193,4 +194,33 @@
 
 #fileHelp {
     color: #282828;
+}
+
+/* Vendor Styles */
+#vendorTableWrapper {
+    max-width: 85%;    
+    margin: auto;
+}
+
+.row-link {
+    display: block;
+    text-decoration: none;
+    color: #fff;
+}
+
+.row-link:hover {
+    text-decoration: none;
+    color: #fff;
+}
+
+.row-link:focus {
+    outline: none;
+}
+
+#vendorEditCard {
+    margin: 50px auto;
+}
+
+#vendorEditCard a {
+    margin-left: 10px;
 }

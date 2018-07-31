@@ -46,6 +46,7 @@ var btn = $('#allInvoiceTable_wrapper').find('.btn-secondary');
 btn.addClass('btn-outline-primary');
 btn.removeClass('btn-secondary');
 
+
 // Unprocessed Invoice Table
 ///////////////////////////////////////////////////////////
 var unprocessedInvoice = $('#unprocessedInvoiceTable').DataTable({
@@ -66,5 +67,26 @@ var btn = $('#unprocessedInvoiceTable_wrapper').find('.btn-secondary');
 btn.addClass('btn-outline-primary');
 btn.removeClass('btn-secondary');
 
-var empty = 'No Unprocessed Invoices'
+var empty = 'All Invoices Have Been Processed'
 $(".dataTables_empty").html(empty);
+
+
+// Vendors Table
+///////////////////////////////////////////////////////////
+var vendors = $('#vendorTable').DataTable({
+    lengthMenu: [[20, 50, 100, -1], [20, 50, 100, 'All']],
+    columnDefs: [
+        { "width": "120px", "targets": [0, 4] }
+    ],
+    buttons: [
+        'copy', 'excel'
+    ],
+    order: [[1, 'asc']]
+});
+
+vendors.buttons().container()
+    .appendTo($('.dataTables_length:eq(0)', vendors.table().container()));
+
+var btn = $('#vendorTable_wrapper').find('.btn-secondary');
+btn.addClass('btn-outline-primary');
+btn.removeClass('btn-secondary');

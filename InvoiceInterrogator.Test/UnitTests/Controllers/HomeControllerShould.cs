@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Moq;
 using Xunit;
-using Moq;
-using InvoiceInterrogator.Core.Interfaces;
+using System.Collections.Generic;
 using InvoiceInterrogator.Core;
+using InvoiceInterrogator.Core.Interfaces;
 using InvoiceInterrogator.Net.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using System;
